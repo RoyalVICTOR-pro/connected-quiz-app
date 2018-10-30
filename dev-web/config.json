@@ -1,0 +1,12 @@
+{
+    "rootApi":"/api/v1",
+    "rootBackoffice":"/admin",
+    "port":"8080",
+    "db":{
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "port": "8889",
+        "database": "quiz_app"
+    }
+}

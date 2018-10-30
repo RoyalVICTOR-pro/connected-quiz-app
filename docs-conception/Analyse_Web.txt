@@ -1,0 +1,66 @@
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+BASE DE DONNEES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Sessions 
+    Plusieurs sessions créées par l'animateur
+    Nom de la session
+    Quiz relié
+    Montant récolté
+
+Participants
+    Plusieurs participants rattachés à une ou plusieurs sessions
+
+Liaisons Sessions/participants
+    Score de chaque participant par rapport à une session
+
+Quiz
+    Nom du quiz
+
+Quiz - Questions
+    Intitulé question
+    Liée à quel quiz    
+
+Quiz - Réponses
+    Intitulé réponse
+    Liée à quelle question
+    Bonne réponse
+    Informations complémentaires
+
+Réponses données
+    Par session
+    Par participant
+    Par question
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+CONNEXION API
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+SESSIONS
+Lister les sessions => get api/v1/sessions/list
+Ajouter une session => post api/v1/sessions/add
+Récupérer le montant collecté pour une session => get api/v1/sessions/get-actual-amount/:id
+Calculer et mettre à jour le montant récolté => => put api/v1/sessions/update-amount/:id
+
+PLAYERS
+Ajouter un participant dans une session
+Mettre à jour le score d'un participant
+Récupérer les participants d'une session avec leur score
+Récupérer le score d'un participant à une session
+
+QUIZ
+Lister les quiz
+Récupérer les questions d'un quiz
+Récupérer les réponses d'une question
+Enregistrer la réponse donnée par un participant à une question lors d'une session
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+BACKOFFICE
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    Identification
+    Choisir un quiz
+        Lister les questions
+            Modifier la question et les réponses
+        Créer une question 
+            Créer des réponses pour les questions
+    
