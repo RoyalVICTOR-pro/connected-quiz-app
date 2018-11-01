@@ -37,30 +37,41 @@ CONNEXION API
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 SESSIONS
-Lister les sessions => get api/v1/sessions/list
-Ajouter une session => post api/v1/sessions/add
-Récupérer le montant collecté pour une session => get api/v1/sessions/get-actual-amount/:id
-Calculer et mettre à jour le montant récolté => => put api/v1/sessions/update-amount/:id
+[x] Lister les sessions => get api/v1/sessions/list
+[x] Ajouter une session => post api/v1/sessions/add
+[ ] Calculer le montant récolté à un instant T, le stocker en base et le retourner
 
 PLAYERS
-Ajouter un participant dans une session
-Mettre à jour le score d'un participant
-Récupérer les participants d'une session avec leur score
-Récupérer le score d'un participant à une session
+[ ] Ajouter un participant dans une session
+[ ] Calculer le score des participants à un instant T, les stocker en base et les retourner
 
 QUIZ
-Lister les quiz
-Récupérer les questions d'un quiz
-Récupérer les réponses d'une question
-Enregistrer la réponse donnée par un participant à une question lors d'une session
+[ ] Lister les quiz
+[ ] Récupérer les questions d'un quiz et récupérer les réponses des question dans un objet global
+[ ] Enregistrer la réponse donnée par un participant à une question lors d'une session
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BACKOFFICE
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    Identification
-    Choisir un quiz
-        Lister les questions
-            Modifier la question et les réponses
-        Créer une question 
-            Créer des réponses pour les questions
-    
+[ ] Identification
+[ ] Lister les quiz avec possibilité d'en sélectionner un
+        [ ]  Lister les questions
+            [ ]  Modifier la question et les réponses
+        [ ] Créer une question 
+            [ ] Créer des réponses pour les questions
+[ ] Lister les sessions avec possibilité d'en sélectionner une
+        [ ]  Lister les participants avec leur score en les classant du meilleur score au moins bon
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+NOTES DIVERSES
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+L'application Animateur affichera les informations récupérées de la base
+L'application Participant enverra les réponses des joueurs à l'API
+
+L'API s'occupera de :
+    - stocker ces réponses
+    - vérifier si ce sont les bonnes réponses
+    - gérer les scores
+    - gérer le montant récolté
