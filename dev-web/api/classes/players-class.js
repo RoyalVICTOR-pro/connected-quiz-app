@@ -20,18 +20,18 @@ let Players = class {
                 db.query('SELECT * FROM players WHERE player_name = ?', [pPlayerName])
                 .then((results)=>{
                     if(results[0] != undefined)
-                        next(new Error("Player Name already exists !"));
+                        return db.query('INSERT INTO players (player_name) VALUES (?)', [pPlayerName]);                        
                     else
-                        return db.query('INSERT INTO players (player_name) VALUES (?)', [pPlayerName]);
+                        next(new Error("Player Name already exists !"));
                 })
                 .then(()=>{
                     return db.query('SELECT * FROM players WHERE player_name = ?', [pPlayerName]);
                 })
                 .then((results)=>{
                     if(results[0] != undefined)
-                        next(new Error("Player Name Not Found !"));
+                        return db.query('INSERT INTO sessions_players_link (player_id, session_id) VALUES (?, ?)', [results[0].player_id, pSessionId]);    
                     else
-                        return db.query('INSERT INTO sessions_players_link (player_id, session_id) VALUES (?, ?)', [results[0].player_id, pSessionId]);
+                        next(new Error("Player Name Not Found !"));                        
                 })
                 .then(()=>{
                     next("Success");

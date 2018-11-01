@@ -65,8 +65,11 @@ mysql.createConnection({
         resultat.json(checkAndChange(allQuiz));
     });
 
-    // TODO : Récupérer les questions d'un quiz et récupérer les réponses des question dans un objet global
-    
+    // Récupérer les questions d'un quiz et récupérer les réponses des question dans un objet global
+    APIRouter.route("/quiz/:id/questions-answers/").get(async (requete,resultat) => {
+        let questionsAndAnswers = await Quiz.getQuestionsAnswers(requete.params.id);
+        resultat.json(checkAndChange(questionsAndAnswers));
+    });
     
     // TODO : Enregistrer la réponse donnée par un participant à une question lors d'une session
 
