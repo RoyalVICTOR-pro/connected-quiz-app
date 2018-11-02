@@ -42,13 +42,13 @@ SESSIONS
 [ ] Calculer le montant récolté à un instant T, le stocker en base et le retourner
 
 PLAYERS
-[ ] Ajouter un participant dans une session
+[x] Ajouter un participant dans une session
 [ ] Calculer le score des participants à un instant T, les stocker en base et les retourner
 
 QUIZ
-[ ] Lister les quiz
-[ ] Récupérer les questions d'un quiz et récupérer les réponses des question dans un objet global
-[ ] Enregistrer la réponse donnée par un participant à une question lors d'une session
+[x] Lister les quiz
+[x] Récupérer les questions d'un quiz et récupérer les réponses des question dans un objet global
+[x] Enregistrer la réponse donnée par un participant à une question lors d'une session
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 BACKOFFICE
@@ -63,15 +63,32 @@ BACKOFFICE
         [ ]  Lister les participants avec leur score en les classant du meilleur score au moins bon
 
 
+
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 NOTES DIVERSES
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 L'application Animateur affichera les informations récupérées de la base
 L'application Participant enverra les réponses des joueurs à l'API
+    L'application enverra en post les valeurs suivantes : player_id, session_id, question_id, answer_id
 
 L'API s'occupera de :
     - stocker ces réponses
     - vérifier si ce sont les bonnes réponses
     - gérer les scores
     - gérer le montant récolté
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+TEST D'AFFICHAGE DES QUESTIONS ET REPONSES (SERA UTILE POUR L'APP)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+for (question of results)
+{
+    console.log(question.question_label);
+    for (answer of question.answers)
+    {   
+        console.log(answer.answer_label);
+    }
+}

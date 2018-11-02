@@ -49,12 +49,15 @@ mysql.createConnection({
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Ajouter un participant dans une session
     APIRouter.route("/players/add/:id_session").post(async (requete,resultat) => { 
-        let newPlayer = await Players.add(requete.body.name, requete.query.id_session);
+        let newPlayer = await Players.add(requete.body.name, requete.params.id_session);
         resultat.json(checkAndChange(newPlayer));
     });
 
-    // TODO : Calculer le score des participants à un instant T, les stocker en base et les retourner (les joueurs + scores)
-
+    // Calculer le score des participants à un instant T, les stocker en base et les retourner (les joueurs + scores)
+    APIRouter.route("/players/get-scores/:id_session").post(async (requete,resultat) => { 
+        let playersAndScores = await Players.getPlayersAndScores(requete.params.id_session);
+        resultat.json(checkAndChange(playersAndScores));
+    });
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // QUIZ
@@ -71,7 +74,11 @@ mysql.createConnection({
         resultat.json(checkAndChange(questionsAndAnswers));
     });
     
-    // TODO : Enregistrer la réponse donnée par un participant à une question lors d'une session
+    // Enregistrer la réponse donnée par un participant à une question lors d'une session
+    APIRouter.route("/quiz/new-answer/").post(async (requete,resultat) => {
+        let newAnswer = await Quiz.addNewAnswer(requete.body.player_id, requete.body.session_id, requete.body.question_id, requete.body.answer_id);
+        resultat.json(checkAndChange(newAnswer));
+    });
 
     // Définition de la route de l'API
     app.use(config.rootApi, APIRouter);

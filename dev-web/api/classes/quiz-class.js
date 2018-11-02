@@ -35,15 +35,15 @@ let Quiz = class {
                         let pQuestionsIds = [];
                         for (let result of results)
                             pQuestionsIds.push(result.question_id);
-                        return db.query('SELECT * FROM quiz_answers WHERE question_id IN (?) ORDER BY question_id, answer_id', [pQuestionsIds.toString()]);
+                        // Juste en dessous je faisais un toString de pQuestionsIds qui foutait la merde dans la requête SQL
+                        return db.query('SELECT * FROM quiz_answers WHERE question_id IN (?) ORDER BY question_id, answer_id', [pQuestionsIds]); 
                     }
                     else
                         next(new Error("No Questions in this Quiz"));
                 })
-              .then((results)=>{
+                .then((results)=>{
                     if(results[0] != undefined)
                     {
-                        // FIXME : Pourquoi les answers sont vides à partir du 2eme
                         for(let question of allQuestions)
                         {
                             let answers = [];
@@ -52,10 +52,8 @@ let Quiz = class {
                                 if(question.question_id == result.question_id)
                                     answers.push(result);
                             }
-                            questionsAndAnswers.push({
-                                question:question,
-                                answers:answers
-                            });
+                            question.answers = answers;
+                            questionsAndAnswers.push(question);
                         }
                         next(questionsAndAnswers);
                     }    
@@ -69,6 +67,25 @@ let Quiz = class {
             } 
             else
                 next(new Error("No Quiz Id"));
+        });
+    }
+
+    static addNewAnswer(pPlayerID, pSessionID, pQuestionsID, pAnswerID)
+    {
+        return new Promise((next)=>{
+            
+            if(pPlayerID != undefined && pSessionID != undefined && pQuestionsID != undefined && pAnswerID != undefined)
+            {
+                db.query('INSERT INTO given_answers (player_id, session_id, question_id, answer_id) VALUES (?, ?, ?, ?)', [pPlayerID, pSessionID, pQuestionsID, pAnswerID])
+                .then(()=>{
+                    next("Success");
+                })
+                .catch((err)=>{next(err.message);});
+            }
+            else
+            {
+                next(new Error("No name or session id"));
+            }
         });
     }
 }
