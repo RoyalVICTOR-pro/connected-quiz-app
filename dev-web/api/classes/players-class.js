@@ -15,14 +15,41 @@ let Players = class {
         return new Promise((next)=>{
             if(pSessionID != undefined)
             {
+                let players_with_scores = [];
+                let score = 1;
                 db.query("SELECT * FROM players NATURAL JOIN given_answers INNER JOIN quiz_answers ON given_answers.answer_id = quiz_answers.answer_id WHERE session_id = ? and is_good_answer = '1' ORDER BY players.player_id", [pSessionID])
                 .then((results)=>{
-                    if(results[0] == undefined)
+                    if(results[0] != undefined)
                     {
-                        // Compter le nombre de bonnes réponses de chaque joueur
-                        // Composer un objet contenant les joueurs et leurs scores
+                        // TODO : Compter le nombre de bonnes réponses de chaque joueur
+                        for (let cpt = 0; cpt<results.length; cpt++)
+                        {
+                            if(players_with_scores[0] == undefined)
+                            {
+                                players_with_scores.push({
+                                    player_id:results[cpt].player_id,
+                                    score:score
+                                });
+                            }
+                            else
+                            {
+                                if(players_with_scores[players_with_scores.length - 1].player_id == results[cpt].player_id)
+                                {
+                                    players_with_scores[players_with_scores.length - 1].score = players_with_scores[players_with_scores.length - 1].score + 1; 
+                                }
+                                else
+                                {
+                                    players_with_scores.push({
+                                        player_id:results[cpt].player_id,
+                                        score:score
+                                    });
+                                }
+                            }
+                        }
+                        console.log(players_with_scores);
                         // Composer une requete d'update qui met à jour les scores des joueurs
                         // Executer la requete d'update
+                        // Récupérer l'intégralité des joueurs d'une session avec leur scores                        
                         // Retourner l'objet avec les joueurs et leurs scores
                     }                       
                     else

@@ -54,7 +54,7 @@ mysql.createConnection({
     });
 
     // Calculer le score des participants à un instant T, les stocker en base et les retourner (les joueurs + scores)
-    APIRouter.route("/players/get-scores/:id_session").post(async (requete,resultat) => { 
+    APIRouter.route("/players/get-scores/:id_session").get(async (requete,resultat) => { 
         let playersAndScores = await Players.getPlayersAndScores(requete.params.id_session);
         resultat.json(checkAndChange(playersAndScores));
     });
