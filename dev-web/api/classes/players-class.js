@@ -21,7 +21,7 @@ let Players = class {
                 .then((results)=>{
                     if(results[0] != undefined)
                     {
-                        // TODO : Compter le nombre de bonnes réponses de chaque joueur
+                        // Compter le nombre de bonnes réponses de chaque joueur
                         for (let cpt = 0; cpt<results.length; cpt++)
                         {
                             if(players_with_scores[0] == undefined)
@@ -46,17 +46,24 @@ let Players = class {
                                 }
                             }
                         }
-                        console.log(players_with_scores);
-                        // Composer une requete d'update qui met à jour les scores des joueurs
-                        // Executer la requete d'update
-                        // Récupérer l'intégralité des joueurs d'une session avec leur scores                        
-                        // Retourner l'objet avec les joueurs et leurs scores
+                        // Requete d'update qui met à jour les scores des joueurs
+                        let updateSql = "";
+                        for (let cpt = 0; cpt<players_with_scores.length; cpt++)
+                        {
+                            updateSql = updateSql+"UPDATE sessions_players_link SET score = " + players_with_scores[cpt].score + " WHERE player_id = " + players_with_scores[cpt].player_id + " AND session_id = " + pSessionID + "; ";
+                        }
+                        return db.query(updateSql);
                     }                       
                     else
                     {
                         next(new Error("No Players or No Scores"));
                     }
                 })
+                .then(()=>{
+                    // Récupérer l'intégralité des joueurs d'une session avec leur scores                        
+                    return db.query('SELECT * FROM sessions_players_link NATURAL JOIN players WHERE session_id = ?', [pSessionID]);
+                })
+                .then((results) => next(results))
                 .catch((err)=>{next(err.message);});
             }
             else

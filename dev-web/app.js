@@ -10,7 +10,8 @@ mysql.createConnection({
     user: config.db.user,
     password: config.db.password,
     port: config.db.port,
-    database: config.db.database
+    database: config.db.database,
+    multipleStatements: config.db.multipleStatements
 }).then((connexion)=>{
     console.log("Connected !");
 
@@ -41,8 +42,11 @@ mysql.createConnection({
         resultat.json(checkAndChange(newSession));
     });
     
-    // TODO : Calculer le montant récolté à un instant T, le stocker en base et le retourner
-
+    // Calculer le montant récolté à un instant T, le stocker en base et le retourner
+    APIRouter.route("/sessions/collected-amount/:id_session").get(async (requete,resultat) => { 
+        let collectedAmount = await Sessions.getCollectedAmount(requete.params.id_session);
+        resultat.json(checkAndChange(collectedAmount));
+    });
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // PLAYERS //

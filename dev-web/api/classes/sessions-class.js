@@ -20,6 +20,20 @@ let Sessions = class {
         });
     }
 
+    static getCollectedAmount(pSessionID)
+    {
+        return new Promise((next)=>{
+                // On calcule tous les scores.
+                db.query('SELECT SUM(score) AS total_score FROM sessions_players_link WHERE session_id = ?', [pSessionID])
+                .then((results)=>{
+                    next({
+                        collected_amount:results[0].total_score*config.amountByPoint,
+                    });
+                })
+                .catch((error) => next(error));
+        });
+    }
+
     static add(pSessionName,pQuizId)
     {
         return new Promise((next)=>{

@@ -7,6 +7,8 @@
         "user": "root",
         "password": "root",
         "port": "8889",
-        "database": "quiz_app"
-    }
+        "database": "quiz_app",
+        "multipleStatements":true
+    },
+    "amountByPoint":10
 }

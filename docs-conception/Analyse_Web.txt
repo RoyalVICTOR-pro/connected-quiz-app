@@ -43,7 +43,7 @@ SESSIONS
 
 PLAYERS
 [x] Ajouter un participant dans une session
-[ ] Calculer le score des participants à un instant T, les stocker en base et les retourner
+[x] Calculer le score des participants à un instant T, les stocker en base et les retourner
 
 QUIZ
 [x] Lister les quiz
