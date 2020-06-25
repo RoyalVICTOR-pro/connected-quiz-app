@@ -1,11 +1,21 @@
 <template>
-  <div>
-    <h2>{{ title }}</h2>
-    <hr />
-    <ul>
-      <li v-for="session in sessions">{{ session.session_name }}</li>
-    </ul>
-  </div>
+  <v-app id="inspire">
+    <v-container fluid>
+      <v-row align="center">
+        <v-col class="d-flex" cols="12" sm="6">
+          <v-select
+            v-model="selectedSession"
+            :items="sessions"
+            item-text="session_name"
+            item-value="session_id"
+            label="Outlined style"
+            outlined
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
+    {{ selectedSession }}
+  </v-app>
 </template>
 
 <script>
@@ -17,7 +27,8 @@ export default {
     return {
       title: "Liste des sessions",
       sessionsListURL: "http://localhost:8080/api/v1/sessions/list",
-      sessions: []
+      sessions: [],
+      selectedSession: null
     };
   },
   created: function() {
