@@ -1,14 +1,14 @@
 {
-    "rootApi":"/api/v1",
-    "rootBackoffice":"/admin",
-    "port":"8080",
-    "db":{
-        "host": "localhost",
-        "user": "root",
-        "password": "root",
-        "port": "8889",
-        "database": "quiz_app",
-        "multipleStatements":true
-    },
-    "amountByPoint":10
+	"rootApi": "/api/v1",
+	"rootBackoffice": "/admin",
+	"port": "8080",
+	"db": {
+		"host": "localhost",
+		"user": "root",
+		"password": "",
+		"port": "3306",
+		"database": "quiz_app",
+		"multipleStatements": true
+	},
+	"amountByPoint": 10
 }
